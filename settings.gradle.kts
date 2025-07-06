@@ -21,3 +21,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "Fake Shop"
 include(":app")
+include(":data")
+include(":design")
+include(":features:auth")
+include(":features:cart")
+include(":features:products")
+include(":features:home")
+include(":features:settings")
+include(":features:orders")
+include(":features:notifications")
