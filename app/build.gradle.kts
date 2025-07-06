@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
 
+    // Timber
+    implementation(libs.logging.timber)
+
     //Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
