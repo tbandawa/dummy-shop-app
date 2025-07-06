@@ -23,3 +23,4 @@ rootProject.name = "Fake Shop"
 include(":app")
 include(":data")
 include(":design")
+include(":features:auth")
