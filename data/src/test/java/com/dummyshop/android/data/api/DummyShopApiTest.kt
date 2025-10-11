@@ -2,7 +2,10 @@ package com.dummyshop.android.data.api
 
 import com.dummyshop.android.data.base.BaseTest
 import com.dummyshop.android.data.remote.api.DummyShopApiClient
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -80,5 +83,19 @@ class DummyShopApiTest: BaseTest() {
         dummyShopApiClient = DummyShopApiClient(mockEngine)
         val response = dummyShopApiClient.getCart(1)
         assertThat(response.total, `is`(103774.85))
+    }
+
+    @Test
+    fun `auth is failure`() {
+        try {
+            enqueueResponse("error_response.json", HttpStatusCode.Unauthorized)
+            dummyShopApiClient = DummyShopApiClient(mockEngine)
+            runBlocking {
+                dummyShopApiClient.loginUser("username", "password")
+            }
+        } catch (e: ClientRequestException) {
+            assertThat(e.response.status.value, `is`(401))
+            assertThat(e.message, containsString("Invalid credentials"))
+        }
     }
 }
