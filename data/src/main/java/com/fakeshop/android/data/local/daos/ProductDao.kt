@@ -5,15 +5,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.fakeshop.android.data.local.entities.ProductEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDao {
 
     @Query("SELECT * FROM products WHERE whishlisted = 1")
-    suspend fun getWhishlist(): List<ProductEntity>
+    fun getWhishlist(): Flow<List<ProductEntity>>
 
     @Insert
-    suspend fun insertAll(vararg products: ProductEntity)
+    suspend fun insert(product: ProductEntity)
 
     @Delete
     suspend fun delete(product: ProductEntity)
