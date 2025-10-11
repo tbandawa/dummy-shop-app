@@ -1,8 +1,7 @@
 # Fake Shop App
 
-Remote data source provided by [FakeShopAPI](https://fake-shopapi.netlify.app/docs)
+Remote data source provided by [DummyJsob](https://dummyjson.com/)
 - products
-- users
 - auth
 - cart
 
