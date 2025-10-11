@@ -29,7 +29,7 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class FakeShopApiClient(httpClientEngine: HttpClientEngine) {
+class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
 
     companion object Companion {
         const val BASE_URL = "https://dummyjson.com"

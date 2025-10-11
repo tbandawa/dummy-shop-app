@@ -1,5 +1,6 @@
 package com.dummyshop.android.data.base
 
+import com.dummyshop.android.data.remote.api.DummyShopApiClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
@@ -19,6 +20,8 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 abstract class BaseTest {
+
+    protected lateinit var dummyShopApiClient: DummyShopApiClient
 
     protected lateinit var mockEngine: MockEngine
 

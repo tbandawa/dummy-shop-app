@@ -5,7 +5,7 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class FakeShopApplication: Application() {
+class DummyShopApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
