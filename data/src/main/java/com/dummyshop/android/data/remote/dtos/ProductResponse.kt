@@ -13,7 +13,7 @@ data class ProductResponse(
     val rating: Double,
     val stock: Long,
     val tags: List<String>,
-    val brand: String?,
+    val brand: String? = null,
     val sku: String,
     val weight: Long,
     val dimensions: DimensionsResponsible,

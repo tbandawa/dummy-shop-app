@@ -8,6 +8,7 @@ import com.dummyshop.android.data.remote.dtos.ProductResponse
 import com.dummyshop.android.data.remote.dtos.ProductsResponse
 import com.dummyshop.android.data.remote.dtos.ProfileResponse
 import com.dummyshop.android.data.remote.dtos.RefreshRequest
+import com.dummyshop.android.data.remote.dtos.RefreshResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -70,7 +71,7 @@ class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
         }.body()
     }
 
-    suspend fun refreshToken(refreshToken: String, expiresIn: Int): ProfileResponse {
+    suspend fun refreshToken(refreshToken: String, expiresIn: Int): RefreshResponse {
         return httpClient.post {
             url("${BASE_URL}/auth/refresh")
             contentType(ContentType.Application.Json)
@@ -79,38 +80,38 @@ class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
     }
 
     suspend fun getProducts(): ProductsResponse {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/products")
         }.body()
     }
 
     suspend fun getProduct(id: Int): ProductResponse {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/products/$id")
         }.body()
     }
 
     suspend fun searchProducts(query: String): ProductsResponse {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/products/search")
             parameter("q", query)
         }.body()
     }
 
     suspend fun getCategories(): List<CategoryResponse> {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/products/categories")
         }.body()
     }
 
     suspend fun getProductsByCategory(category: String): ProductsResponse {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/products/category/$category")
         }.body()
     }
 
     suspend fun getCart(id: Int): CartResponse {
-        return httpClient.post {
+        return httpClient.get {
             url("${BASE_URL}/carts/$id")
         }.body()
     }
