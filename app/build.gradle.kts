@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fakeshop.android"
+    namespace = "com.dummyshop.android"
     compileSdk = 36
 
     defaultConfig {

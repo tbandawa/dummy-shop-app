@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Fake Shop"
+rootProject.name = "Dummy Shop"
 include(":app")
 include(":data")
 include(":design")
