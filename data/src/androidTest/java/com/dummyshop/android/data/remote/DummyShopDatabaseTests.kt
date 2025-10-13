@@ -92,7 +92,7 @@ class DummyShopDatabaseTests {
 
     @Test
     @Throws(Exception::class)
-    fun writeSingleProductAndRead() {
+    fun writeSingleProductAndRead() = runBlocking {
         val exampleProduct = ProductEntity(
             uid = UUID.randomUUID(),
             id = 101L,
@@ -105,17 +105,15 @@ class DummyShopDatabaseTests {
             thumbnail = "https://example.com/images/keyboard_thumb.jpg",
             isWishlist = true
         )
-        runBlocking {
-            productDao.addWishlist(exampleProduct)
-            assertThat(productDao.getWishlist().size, equalTo(1))
-            productDao.removeFromWishList(101L)
-            assertThat(productDao.getWishlist().size, equalTo(0))
-        }
+        productDao.addWishlist(exampleProduct)
+        assertThat(productDao.getWishlist().size, equalTo(1))
+        productDao.removeFromWishList(101L)
+        assertThat(productDao.getWishlist().size, equalTo(0))
     }
 
     @Test
     @Throws(Exception::class)
-    fun writeSingleProfileAndRead() {
+    fun writeSingleProfileAndRead() = runBlocking {
         val userProfile = ProfileEntity(
             uid = UUID.randomUUID(),
             id = 5001L,
@@ -124,14 +122,12 @@ class DummyShopDatabaseTests {
             gender = "Male",
             email = "alex.j@example.com",
             image = "https://cdn.images.com/profiles/alex_j.jpg",
-            accessToken = "kjh34g5j34k5hg6kjh34kj5h3g4k5jhg34", // Dummy token
-            refreshToken = "l2k3j4h5g6k3j4h5g6k3j4h5g6k3j4h5g6" // Dummy token
+            accessToken = "kjh34g5j34k5hg6kjh34kj5h3g4k5jhg34",
+            refreshToken = "l2k3j4h5g6k3j4h5g6k3j4h5g6k3j4h5g6"
         )
-        runBlocking {
-            profileDao.saveProfile(userProfile)
-            assertThat(profileDao.getProfile()?.id, equalTo(5001))
-            profileDao.clearProfile()
-            assertThat(profileDao.getProfile(), equalTo(null))
-        }
+        profileDao.saveProfile(userProfile)
+        assertThat(profileDao.getProfile()?.id, equalTo(5001))
+        profileDao.clearProfile()
+        assertThat(profileDao.getProfile(), equalTo(null))
     }
 }
