@@ -3,10 +3,11 @@ package com.dummyshop.android.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity(tableName = "products")
 data class ProductEntity(
-    @PrimaryKey val uid: String,
+    @PrimaryKey val uid: UUID,
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,

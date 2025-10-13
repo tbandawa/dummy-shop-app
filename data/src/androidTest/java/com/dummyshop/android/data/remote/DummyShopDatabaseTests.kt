@@ -1,0 +1,112 @@
+package com.dummyshop.android.data.remote
+
+import androidx.room.Room
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.dummyshop.android.data.local.daos.ProductDao
+import com.dummyshop.android.data.local.daos.ProfileDao
+import com.dummyshop.android.data.local.db.DummyShopDatabase
+import com.dummyshop.android.data.local.entities.ProductEntity
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.IOException
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.util.UUID
+
+@RunWith(AndroidJUnit4::class)
+class DummyShopDatabaseTests {
+
+    private lateinit var profileDao: ProfileDao
+
+    private lateinit var productDao: ProductDao
+
+    private lateinit var database: DummyShopDatabase
+
+    @Before
+    fun createDb() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        database = Room.inMemoryDatabaseBuilder(
+            appContext, DummyShopDatabase::class.java).build()
+        profileDao = database.profileDao()
+        productDao = database.productDao()
+    }
+
+    @After
+    @Throws(IOException::class)
+    fun closeDb() {
+        database.close()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun writeProductsAndReadInList() {
+        val exampleProduct = ProductEntity(
+            uid = UUID.randomUUID(),
+            id = 101L,
+            title = "Ergonomic Mechanical Keyboard",
+            description = "A split, tented mechanical keyboard with brown tactile switches.",
+            category = "Electronics",
+            price = 149.99,
+            discountPercentage = 10.0,
+            rating = 4.7,
+            thumbnail = "https://example.com/images/keyboard_thumb.jpg",
+            isWishlist = true
+        )
+        val anotherProduct = ProductEntity(
+            uid = UUID.randomUUID(),
+            id = 205L,
+            title = "The Kotlin Programming Guide",
+            description = "A comprehensive book covering all modern Kotlin features, from basics to coroutines.",
+            category = "Books",
+            price = 35.50,
+            discountPercentage = 0.0,
+            rating = 4.9,
+            thumbnail = "https://example.com/images/kotlin_book.jpg",
+            isWishlist = false
+        )
+        val discountedProduct = ProductEntity(
+            uid = UUID.randomUUID(),
+            id = 312L,
+            title = "Organic Cotton T-Shirt",
+            description = "Sustainable and comfortable white cotton t-shirt for everyday wear.",
+            category = "Apparel",
+            price = 25.00,
+            discountPercentage = 25.0,
+            rating = 4.2,
+            thumbnail = "https://example.com/images/tshirt.jpg",
+            isWishlist = true
+        )
+        productDao.insertAll(exampleProduct, anotherProduct, discountedProduct)
+        assertThat(productDao.getProducts().size, equalTo(1))
+        assertThat(productDao.getWishlist().size, equalTo(2))
+        productDao.clearProducts()
+        productDao.clearWishlist()
+        assertThat(productDao.getProducts().size, equalTo(0))
+        assertThat(productDao.getWishlist().size, equalTo(0))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun writeSingleProductAndRead() {
+        runBlocking {
+            val exampleProduct = ProductEntity(
+                uid = UUID.randomUUID(),
+                id = 101L,
+                title = "Ergonomic Mechanical Keyboard",
+                description = "A split, tented mechanical keyboard with brown tactile switches.",
+                category = "Electronics",
+                price = 149.99,
+                discountPercentage = 10.0,
+                rating = 4.7,
+                thumbnail = "https://example.com/images/keyboard_thumb.jpg",
+                isWishlist = true
+            )
+            productDao.addWishlist(exampleProduct)
+            assertThat(productDao.getWishlist().size, equalTo(1))
+        }
+    }
+}

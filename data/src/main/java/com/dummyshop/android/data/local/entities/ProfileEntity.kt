@@ -3,10 +3,11 @@ package com.dummyshop.android.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity(tableName = "profile")
 data class ProfileEntity(
-    @PrimaryKey val uid: String,
+    @PrimaryKey val uid: UUID,
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "firstName") val firstName: String,
     @ColumnInfo(name = "lastName") val lastName: String,
