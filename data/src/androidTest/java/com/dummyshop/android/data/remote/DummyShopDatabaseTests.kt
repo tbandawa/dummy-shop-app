@@ -8,6 +8,7 @@ import com.dummyshop.android.data.local.daos.ProductDao
 import com.dummyshop.android.data.local.daos.ProfileDao
 import com.dummyshop.android.data.local.db.DummyShopDatabase
 import com.dummyshop.android.data.local.entities.ProductEntity
+import com.dummyshop.android.data.local.entities.ProfileEntity
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.IOException
 import org.hamcrest.CoreMatchers.equalTo
@@ -92,21 +93,45 @@ class DummyShopDatabaseTests {
     @Test
     @Throws(Exception::class)
     fun writeSingleProductAndRead() {
+        val exampleProduct = ProductEntity(
+            uid = UUID.randomUUID(),
+            id = 101L,
+            title = "Ergonomic Mechanical Keyboard",
+            description = "A split, tented mechanical keyboard with brown tactile switches.",
+            category = "Electronics",
+            price = 149.99,
+            discountPercentage = 10.0,
+            rating = 4.7,
+            thumbnail = "https://example.com/images/keyboard_thumb.jpg",
+            isWishlist = true
+        )
         runBlocking {
-            val exampleProduct = ProductEntity(
-                uid = UUID.randomUUID(),
-                id = 101L,
-                title = "Ergonomic Mechanical Keyboard",
-                description = "A split, tented mechanical keyboard with brown tactile switches.",
-                category = "Electronics",
-                price = 149.99,
-                discountPercentage = 10.0,
-                rating = 4.7,
-                thumbnail = "https://example.com/images/keyboard_thumb.jpg",
-                isWishlist = true
-            )
             productDao.addWishlist(exampleProduct)
             assertThat(productDao.getWishlist().size, equalTo(1))
+            productDao.removeFromWishList(101L)
+            assertThat(productDao.getWishlist().size, equalTo(0))
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun writeSingleProfileAndRead() {
+        val userProfile = ProfileEntity(
+            uid = UUID.randomUUID(),
+            id = 5001L,
+            firstName = "Alex",
+            lastName = "Johnson",
+            gender = "Male",
+            email = "alex.j@example.com",
+            image = "https://cdn.images.com/profiles/alex_j.jpg",
+            accessToken = "kjh34g5j34k5hg6kjh34kj5h3g4k5jhg34", // Dummy token
+            refreshToken = "l2k3j4h5g6k3j4h5g6k3j4h5g6k3j4h5g6" // Dummy token
+        )
+        runBlocking {
+            profileDao.saveProfile(userProfile)
+            assertThat(profileDao.getProfile()?.id, equalTo(5001))
+            profileDao.clearProfile()
+            assertThat(profileDao.getProfile(), equalTo(null))
         }
     }
 }
