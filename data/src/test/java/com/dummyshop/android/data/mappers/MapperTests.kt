@@ -16,7 +16,9 @@ class MapperTests: BaseUnitTest() {
     fun `test login mapper`() {
         val loginResponse = readJsonResponse<LoginResponse>("login_response.json")
         val login = loginMapper.map(loginResponse)
-        assertThat(login.id, `is`(89686.65))
+        assertThat(login.id, `is`(1))
+        assertThat(login.lastName, `is`("Johnson"))
+
     }
 
     @Test
