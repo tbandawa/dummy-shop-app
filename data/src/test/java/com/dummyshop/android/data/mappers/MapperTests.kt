@@ -3,6 +3,7 @@ package com.dummyshop.android.data.mappers
 import com.dummyshop.android.data.base.BaseUnitTest
 import com.dummyshop.android.data.remote.dtos.CartResponse
 import com.dummyshop.android.data.remote.dtos.CategoryResponse
+import com.dummyshop.android.data.remote.dtos.LoginResponse
 import com.dummyshop.android.data.remote.dtos.ProductResponse
 import com.dummyshop.android.data.remote.dtos.ProductsResponse
 import org.hamcrest.CoreMatchers.`is`
@@ -10,6 +11,13 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class MapperTests: BaseUnitTest() {
+
+    @Test
+    fun `test login mapper`() {
+        val loginResponse = readJsonResponse<LoginResponse>("login_response.json")
+        val login = loginMapper.map(loginResponse)
+        assertThat(login.id, `is`(89686.65))
+    }
 
     @Test
     fun `test cart mapper`() {
