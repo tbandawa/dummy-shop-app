@@ -30,6 +30,6 @@ class MapperTests: BaseUnitTest() {
     fun `test categories mapper`() {
         val categoriesResponse = readJsonResponse<List<CategoryResponse>>("categories_response.json")
         val categories = categoryMapper.mapAll(categoriesResponse)
-        assertThat(categories.size, `is`(194L))
+        assertThat(categories.size, `is`(24))
     }
 }

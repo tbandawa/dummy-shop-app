@@ -7,7 +7,11 @@ import com.dummyshop.android.domain.models.Category
 class CategoryMapperImpl: Mapper<CategoryResponse, Category> {
 
     override fun map(from: CategoryResponse): Category {
-        TODO("Not yet implemented")
+        return Category(
+            slug = from.slug,
+            name = from.name,
+            url = from.url
+        )
     }
 }
 
