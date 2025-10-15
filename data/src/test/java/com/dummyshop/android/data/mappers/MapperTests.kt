@@ -3,6 +3,7 @@ package com.dummyshop.android.data.mappers
 import com.dummyshop.android.data.base.BaseUnitTest
 import com.dummyshop.android.data.remote.dtos.CartResponse
 import com.dummyshop.android.data.remote.dtos.CategoryResponse
+import com.dummyshop.android.data.remote.dtos.ProductResponse
 import com.dummyshop.android.data.remote.dtos.ProductsResponse
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -24,6 +25,13 @@ class MapperTests: BaseUnitTest() {
         val products = productsMapper.map(productsResponse)
         assertThat(products.total, `is`(194L))
         assertThat(products.products.size, `is`(30))
+    }
+
+    @Test
+    fun `test product mapper`() {
+        val productResponse = readJsonResponse<ProductResponse>("product_response.json")
+        val product = productsMapper.mapProduct(productResponse)
+        assertThat(product.id, `is`(1L))
     }
 
     @Test

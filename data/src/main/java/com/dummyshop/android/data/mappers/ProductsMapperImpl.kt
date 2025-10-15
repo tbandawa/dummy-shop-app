@@ -1,5 +1,6 @@
 package com.dummyshop.android.data.mappers
 
+import com.dummyshop.android.data.remote.dtos.ProductResponse
 import com.dummyshop.android.data.remote.dtos.ProductsResponse
 import com.dummyshop.android.domain.mappers.Mapper
 import com.dummyshop.android.domain.models.Dimensions
@@ -13,51 +14,55 @@ class ProductsMapperImpl: Mapper<ProductsResponse, Products> {
     override fun map(from: ProductsResponse): Products {
         return Products(
             products = from.products.map {
-                Product(
-                    id = it.id,
-                    title = it.title,
-                    description = it.description,
-                    category = it.category,
-                    price = it.price,
-                    discountPercentage = it.discountPercentage,
-                    rating = it.rating,
-                    stock = it.stock,
-                    tags = it.tags.map{ it },
-                    brand = it.brand,
-                    sku = it.sku,
-                    weight = it.weight,
-                    dimensions = Dimensions(
-                        width = it.dimensions.width,
-                        height = it.dimensions.height,
-                        depth = it.dimensions.depth
-                    ),
-                    warrantyInformation = it.warrantyInformation,
-                    shippingInformation = it.shippingInformation,
-                    availabilityStatus = it.availabilityStatus,
-                    reviews = it.reviews.map {
-                        Review(
-                            rating = it.rating,
-                            comment = it.comment,
-                            date = it.date,
-                            reviewerName = it.reviewerName,
-                            reviewerEmail = it.reviewerEmail
-                        )
-                    },
-                    returnPolicy = it.returnPolicy,
-                    minimumOrderQuantity = it.minimumOrderQuantity,
-                    meta = Meta(
-                        createdAt = it.meta.createdAt,
-                        updatedAt = it.meta.updatedAt,
-                        barcode = it.meta.barcode,
-                        qrCode = it.meta.qrCode
-                    ),
-                    images = it.images.map { it },
-                    thumbnail = it.thumbnail
-                )
+                mapProduct(it)
             },
             total = from.total,
             skip = from.skip,
             limit = from.limit
+        )
+    }
+
+    fun mapProduct(response: ProductResponse): Product {
+        return Product(
+            id = response.id,
+            title = response.title,
+            description = response.description,
+            category = response.category,
+            price = response.price,
+            discountPercentage = response.discountPercentage,
+            rating = response.rating,
+            stock = response.stock,
+            tags = response.tags.map{ it },
+            brand = response.brand,
+            sku = response.sku,
+            weight = response.weight,
+            dimensions = Dimensions(
+                width = response.dimensions.width,
+                height = response.dimensions.height,
+                depth = response.dimensions.depth
+            ),
+            warrantyInformation = response.warrantyInformation,
+            shippingInformation = response.shippingInformation,
+            availabilityStatus = response.availabilityStatus,
+            reviews = response.reviews.map {
+                Review(
+                    rating = it.rating,
+                    comment = it.comment,
+                    date = it.date,
+                    reviewerName = it.reviewerName,
+                    reviewerEmail = it.reviewerEmail
+                )
+            },
+            returnPolicy = response.returnPolicy,
+            minimumOrderQuantity = response.minimumOrderQuantity,
+            meta = Meta(
+                createdAt = response.meta.createdAt,
+                updatedAt = response.meta.updatedAt,
+                barcode = response.meta.barcode,
+                qrCode = response.meta.qrCode
+            ),
+            images = response.images.map { it },
+            thumbnail = response.thumbnail
         )
     }
 }
