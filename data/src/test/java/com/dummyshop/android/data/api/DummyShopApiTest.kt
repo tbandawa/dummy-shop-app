@@ -1,6 +1,6 @@
 package com.dummyshop.android.data.api
 
-import com.dummyshop.android.data.base.BaseTest
+import com.dummyshop.android.data.base.BaseUnitTest
 import com.dummyshop.android.data.remote.api.DummyShopApiClient
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.http.HttpStatusCode
@@ -10,7 +10,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
-class DummyShopApiTest: BaseTest() {
+class DummyShopApiTest: BaseUnitTest() {
 
     @Test
     fun `user login`() = runBlocking {

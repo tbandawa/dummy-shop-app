@@ -19,7 +19,7 @@ import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 @OptIn(ExperimentalCoroutinesApi::class)
-abstract class BaseTest {
+abstract class BaseUnitTest {
 
     protected lateinit var dummyShopApiClient: DummyShopApiClient
 
@@ -53,6 +53,6 @@ abstract class BaseTest {
         return Json.decodeFromString<T>(fileContent)
     }
 
-    protected fun BaseTest.stringResponse(fileName: String): String =
+    protected fun BaseUnitTest.stringResponse(fileName: String): String =
         this::class.java.classLoader!!.getResource(fileName).readText()
 }

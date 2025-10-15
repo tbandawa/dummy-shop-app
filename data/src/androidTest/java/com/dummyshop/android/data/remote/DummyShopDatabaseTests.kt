@@ -1,46 +1,15 @@
 package com.dummyshop.android.data.remote
 
-import androidx.room.Room
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import com.dummyshop.android.data.local.daos.ProductDao
-import com.dummyshop.android.data.local.daos.ProfileDao
-import com.dummyshop.android.data.local.db.DummyShopDatabase
 import com.dummyshop.android.data.local.entities.ProductEntity
 import com.dummyshop.android.data.local.entities.ProfileEntity
+import com.dummyshop.android.data.remote.base.BaseInstrTest
 import kotlinx.coroutines.runBlocking
-import kotlinx.io.IOException
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.util.UUID
 
-@RunWith(AndroidJUnit4::class)
-class DummyShopDatabaseTests {
-
-    private lateinit var profileDao: ProfileDao
-
-    private lateinit var productDao: ProductDao
-
-    private lateinit var database: DummyShopDatabase
-
-    @Before
-    fun createDb() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        database = Room.inMemoryDatabaseBuilder(
-            appContext, DummyShopDatabase::class.java).build()
-        profileDao = database.profileDao()
-        productDao = database.productDao()
-    }
-
-    @After
-    @Throws(IOException::class)
-    fun closeDb() {
-        database.close()
-    }
+class DummyShopDatabaseTests: BaseInstrTest() {
 
     @Test
     @Throws(Exception::class)
