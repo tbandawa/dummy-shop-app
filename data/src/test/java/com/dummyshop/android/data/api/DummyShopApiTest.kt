@@ -70,7 +70,7 @@ class DummyShopApiTest: BaseUnitTest() {
     }
 
     @Test
-    fun `search products by vategory`() = runBlocking {
+    fun `search products by category`() = runBlocking {
         enqueueResponse("category_products_response.json")
         dummyShopApiClient = DummyShopApiClient(mockEngine)
         val response = dummyShopApiClient.getProductsByCategory("category")
