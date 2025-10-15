@@ -21,6 +21,7 @@ class MapperTests: BaseUnitTest() {
     fun `test products mapper`() {
         val productsResponse = readJsonResponse<ProductsResponse>("products_response.json")
         val products = productsMapper.map(productsResponse)
-        assertThat(products.total, `is`(89686.65))
+        assertThat(products.total, `is`(194L))
+        assertThat(products.products.size, `is`(30))
     }
 }
