@@ -1,5 +1,6 @@
 package com.dummyshop.android.data.base
 
+import com.dummyshop.android.data.mappers.CartMapperImpl
 import com.dummyshop.android.data.remote.api.DummyShopApiClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -21,6 +22,8 @@ import org.junit.runners.JUnit4
 @OptIn(ExperimentalCoroutinesApi::class)
 abstract class BaseUnitTest {
 
+    protected lateinit var cartMapper: CartMapperImpl
+
     protected lateinit var dummyShopApiClient: DummyShopApiClient
 
     protected lateinit var mockEngine: MockEngine
@@ -28,6 +31,7 @@ abstract class BaseUnitTest {
     @Before
     fun testsSetup() {
         Dispatchers.setMain(Dispatchers.Unconfined)
+        cartMapper = CartMapperImpl()
     }
 
     @After
