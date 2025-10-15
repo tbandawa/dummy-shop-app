@@ -12,6 +12,7 @@ class MapperTests: BaseUnitTest() {
     fun `cart response mapper`() {
         val cartResponse = readJsonResponse<CartResponse>("cart_response.json")
         val cart = cartMapper.map(cartResponse)
-        assertThat(cart.products.size, `is`(10))
+        assertThat(cart.discountedTotal, `is`(89686.65))
+        assertThat(cart.products.size, `is`(4))
     }
 }
