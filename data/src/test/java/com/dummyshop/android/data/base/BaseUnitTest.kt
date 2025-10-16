@@ -4,6 +4,7 @@ import com.dummyshop.android.data.mappers.CartMapperImpl
 import com.dummyshop.android.data.mappers.CategoryMapperImpl
 import com.dummyshop.android.data.mappers.LoginMapperImpl
 import com.dummyshop.android.data.mappers.ProductsMapperImpl
+import com.dummyshop.android.data.mappers.ProfileMapperImpl
 import com.dummyshop.android.data.mappers.RefreshMapperImpl
 import com.dummyshop.android.data.remote.api.DummyShopApiClient
 import io.ktor.client.engine.mock.MockEngine
@@ -30,6 +31,8 @@ abstract class BaseUnitTest {
 
     protected lateinit var refreshMapper: RefreshMapperImpl
 
+    protected lateinit var profileMapper: ProfileMapperImpl
+
     protected lateinit var cartMapper: CartMapperImpl
 
     protected lateinit var categoryMapper: CategoryMapperImpl
@@ -45,6 +48,7 @@ abstract class BaseUnitTest {
         Dispatchers.setMain(Dispatchers.Unconfined)
         loginMapper = LoginMapperImpl()
         refreshMapper = RefreshMapperImpl()
+        profileMapper = ProfileMapperImpl()
         cartMapper = CartMapperImpl()
         categoryMapper = CategoryMapperImpl()
         productsMapper = ProductsMapperImpl()
