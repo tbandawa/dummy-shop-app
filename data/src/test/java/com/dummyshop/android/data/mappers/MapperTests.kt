@@ -6,6 +6,7 @@ import com.dummyshop.android.data.remote.dtos.CategoryResponse
 import com.dummyshop.android.data.remote.dtos.LoginResponse
 import com.dummyshop.android.data.remote.dtos.ProductResponse
 import com.dummyshop.android.data.remote.dtos.ProductsResponse
+import com.dummyshop.android.data.remote.dtos.RefreshResponse
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -19,6 +20,13 @@ class MapperTests: BaseUnitTest() {
         assertThat(login.id, `is`(1))
         assertThat(login.lastName, `is`("Johnson"))
 
+    }
+
+    @Test
+    fun `test refresh mapper`() {
+        val refreshResponse = readJsonResponse<RefreshResponse>("token_response.json")
+        val refresh = refreshMapper.map(refreshResponse)
+        assertThat(refresh.accessToken.substring(0, 2), `is`("ey"))
     }
 
     @Test
