@@ -79,9 +79,10 @@ class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
         }.body()
     }
 
-    suspend fun getProducts(): ProductsResponse {
+    suspend fun getProducts(limit: Int = 0): ProductsResponse {
         return httpClient.get {
             url("${BASE_URL}/products")
+            parameter("limit", limit)
         }.body()
     }
 
@@ -91,10 +92,11 @@ class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
         }.body()
     }
 
-    suspend fun searchProducts(query: String): ProductsResponse {
+    suspend fun searchProducts(query: String, limit: Int = 0): ProductsResponse {
         return httpClient.get {
             url("${BASE_URL}/products/search")
             parameter("q", query)
+            parameter("limit", limit)
         }.body()
     }
 
@@ -104,9 +106,10 @@ class DummyShopApiClient(httpClientEngine: HttpClientEngine) {
         }.body()
     }
 
-    suspend fun getProductsByCategory(category: String): ProductsResponse {
+    suspend fun getProductsByCategory(category: String, limit: Int = 0): ProductsResponse {
         return httpClient.get {
             url("${BASE_URL}/products/category/$category")
+            parameter("limit", limit)
         }.body()
     }
 
