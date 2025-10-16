@@ -34,7 +34,8 @@ class MapperTests: BaseUnitTest() {
     fun `test profile mapper`() {
         val profileResponse = readJsonResponse<ProfileResponse>("profile_response.json")
         val profile = profileMapper.map(profileResponse)
-        assertThat(profile.id, `is`(5))
+        assertThat(profile.id, `is`(1))
+        assertThat(profile.lastName, `is`("Johnson"))
     }
 
     @Test
