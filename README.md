@@ -1,4 +1,4 @@
-# Fake Shop App
+# Dummy Shop App
 
 Remote data source provided by [DummyJsob](https://dummyjson.com/)
 - products
