@@ -1,6 +1,6 @@
 # Dummy Shop App
 
-Remote data source provided by [DummyJsob](https://dummyjson.com/)
+Remote data source provided by [DummyShop](https://dummyjson.com/)
 - products
 - auth
 - cart
